@@ -14,6 +14,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUE = (64, 64, 255)
 RED = (255, 64, 64)
+YELLOW = (255, 255, 0)
 
 clock = pygame.time.Clock()
 
@@ -46,10 +47,10 @@ def dialing_interface():
 
 
 
-def gate_status(msg):
+def gate_status(msg, color):
   pygame.draw.rect(screen, WHITE, [55, 570, 500, 100], 2)
   screen.fill(BLACK, (70, 580, 480, 70))
-  text = font.render(msg, True, (255, 255, 255))
+  text = font.render(msg, True, color)
   screen.blit(text, (300 - text.get_width() // 2, 620 - text.get_height() // 2))
 
 
@@ -79,7 +80,6 @@ def draw_stargate_inactive():
 def draw_stargate_active():
   draw_stargate_inactive()
   screen.blit(puddle, (95, 97))
-  gate_status("LOCKED")
 
 
 def main():
@@ -89,7 +89,7 @@ def main():
 
   dialing_interface()
   draw_stargate_inactive()
-  gate_status("IDLE")
+  gate_status("IDLE", WHITE)
 
   while not programExit:
 
@@ -104,7 +104,7 @@ def main():
               pygame.draw.polygon(screen, RED, [[125, 480], [140, 425], [90, 435]])
               pygame.draw.rect(screen, WHITE, [600, 50, 100, 50])
               screen.blit(ABYDOS[0], (625, 50))
-              gate_status("ENGAGED")
+              gate_status("ENGAGED", YELLOW)
               encoded += 1
 
           if event.key == pygame.K_y:
@@ -112,7 +112,7 @@ def main():
               pygame.draw.polygon(screen, RED, [[50, 275], [100, 300], [50, 325]])
               pygame.draw.rect(screen, WHITE, [600, 110, 100, 50])
               screen.blit(ABYDOS[1], (625, 110))
-              gate_status("ENGAGED")
+              gate_status("ENGAGED", YELLOW)
               encoded += 1
 
           if event.key == pygame.K_b:
@@ -120,7 +120,7 @@ def main():
               pygame.draw.polygon(screen, RED, [[135, 110], [150, 165], [100, 150]])
               pygame.draw.rect(screen, WHITE, [600, 170, 100, 50])
               screen.blit(ABYDOS[2], (625, 170))
-              gate_status("ENGAGED")
+              gate_status("ENGAGED", YELLOW)
               encoded += 1
 
           if event.key == pygame.K_x:
@@ -128,7 +128,7 @@ def main():
               pygame.draw.polygon(screen, RED, [[465, 110], [450, 170], [500, 150]])
               pygame.draw.rect(screen, WHITE, [600, 230, 100, 50])
               screen.blit(ABYDOS[3], (625, 230))
-              gate_status("ENGAGED")
+              gate_status("ENGAGED", YELLOW)
               encoded += 1
 
           if event.key == pygame.K_t:
@@ -136,7 +136,7 @@ def main():
               pygame.draw.polygon(screen, RED, [[550, 275], [500, 300], [550, 325]])
               pygame.draw.rect(screen, WHITE, [600, 290, 100, 50])
               screen.blit(ABYDOS[4], (625, 290))
-              gate_status("ENGAGED")
+              gate_status("ENGAGED", YELLOW)
               encoded += 1
 
           if event.key == pygame.K_u:
@@ -144,7 +144,7 @@ def main():
               pygame.draw.polygon(screen, RED, [[475, 475], [455, 425], [510, 430]])
               pygame.draw.rect(screen, WHITE, [600, 350, 100, 50])
               screen.blit(ABYDOS[5], (625, 350))
-              gate_status("ENGAGED")
+              gate_status("ENGAGED", YELLOW)
               encoded += 1
 
           if event.key == pygame.K_h:
@@ -157,6 +157,7 @@ def main():
 
     if encoded == 7:
         draw_stargate_active()
+        gate_status("LOCKED", BLUE)
 
 
     pygame.display.update()
