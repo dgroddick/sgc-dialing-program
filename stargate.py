@@ -109,45 +109,39 @@ def main():
               screen.blit(ABYDOS[2], (625, 170))
               encoded += 1
 
-          if event.key == pygame.K_l:
-              # top center
-              pygame.draw.polygon(screen, RED, [[275, 50], [300, 100], [325, 50]])
-              pygame.draw.rect(screen, WHITE, [600, 230, 100, 50])
-              screen.blit(ABYDOS[3], (625, 230))
-              encoded += 1
-
           if event.key == pygame.K_x:
               # top right
               pygame.draw.polygon(screen, RED, [[465, 110], [450, 170], [500, 150]])
-              pygame.draw.rect(screen, WHITE, [600, 290, 100, 50])
-              screen.blit(ABYDOS[3], (625, 290))
+              pygame.draw.rect(screen, WHITE, [600, 230, 100, 50])
+              screen.blit(ABYDOS[3], (625, 230))
               encoded += 1
 
           if event.key == pygame.K_t:
               # center right
               pygame.draw.polygon(screen, RED, [[550, 275], [500, 300], [550, 325]])
-              pygame.draw.rect(screen, WHITE, [600, 350, 100, 50])
-              screen.blit(ABYDOS[4], (625, 350))
+              pygame.draw.rect(screen, WHITE, [600, 290, 100, 50])
+              screen.blit(ABYDOS[4], (625, 290))
               encoded += 1
 
           if event.key == pygame.K_u:
               # bottom right
               pygame.draw.polygon(screen, RED, [[475, 475], [455, 425], [510, 430]])
-              pygame.draw.rect(screen, WHITE, [600, 410, 100, 50])
-              screen.blit(ABYDOS[5], (625, 410))
+              pygame.draw.rect(screen, WHITE, [600, 350, 100, 50])
+              screen.blit(ABYDOS[5], (625, 350))
               encoded += 1
 
           if event.key == pygame.K_h:
               # point of origin
-              pygame.draw.rect(screen, WHITE, [600, 470, 100, 50])
-              screen.blit(ABYDOS[6], (625, 470))
+              pygame.draw.polygon(screen, RED, [[275, 50], [300, 100], [325, 50]])
+              pygame.draw.rect(screen, WHITE, [600, 410, 100, 50])
+              screen.blit(ABYDOS[6], (625, 410))
               encoded += 1
 
 
     dialing_interface()
     draw_stargate_inactive()
 
-    if encoded == 8:
+    if encoded == 7:
         draw_stargate_active()
 
     pygame.display.update()
