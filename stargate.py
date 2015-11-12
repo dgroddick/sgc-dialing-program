@@ -2,6 +2,11 @@
 
 import pygame
 import sys
+import time
+
+# Import Gate addresses
+from addresses import db
+
 
 pygame.init()
 
@@ -23,17 +28,6 @@ clock = pygame.time.Clock()
 # load images
 puddle = pygame.image.load('puddle.png')
 
-# Load images
-ABYDOS = [pygame.image.load('glyphs/glyph27.gif'),
-          pygame.image.load('glyphs/glyph07.gif'),
-          pygame.image.load('glyphs/glyph15.gif'),
-          pygame.image.load('glyphs/glyph32.gif'),
-          pygame.image.load('glyphs/glyph12.gif'),
-          pygame.image.load('glyphs/glyph30.gif'),
-          pygame.image.load('glyphs/glyph01.gif')]
-
-# GATE ADDRESSES
-ADDRESSES = ['ABYDOS', ['A', 'Y', 'B', 'L', 'X', 'T', 'U']]
 
 
 def dialing_interface():
@@ -92,6 +86,9 @@ def main():
   dialing_interface()
   draw_stargate_inactive()
   gate_status("IDLE", WHITE)
+
+  # List to hold the dialed symbols
+  address = []
 
   while not programExit:
 
