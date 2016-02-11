@@ -8,6 +8,10 @@ import time
 from addresses import db
 
 # Load images
+icon = pygame.image.load('glyphs/glyph01.gif')
+icon = pygame.display.set_icon(icon)
+puddle = pygame.image.load('puddle.png')
+
 ABYDOS = [pygame.image.load('glyphs/glyph27.gif'),
           pygame.image.load('glyphs/glyph07.gif'),
           pygame.image.load('glyphs/glyph15.gif'),
@@ -33,9 +37,6 @@ RED = (255, 64, 64)
 YELLOW = (255, 255, 0)
 
 clock = pygame.time.Clock()
-
-# load images
-puddle = pygame.image.load('puddle.png')
 
 
 
