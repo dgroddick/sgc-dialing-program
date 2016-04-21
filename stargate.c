@@ -6,7 +6,8 @@
 int main(int argc, char *argv[])
 {
     ALLEGRO_DISPLAY *display = NULL;
-    ALLEGRO_BITMAP *image = NULL;
+    ALLEGRO_BITMAP *stargate = NULL;
+    ALLEGRO_BITMAP *symbols[7];
     ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
 
@@ -35,12 +36,21 @@ int main(int argc, char *argv[])
       return 0;
     }
 
-    image = al_load_bitmap("stargate.png");
-    if(!image) {
+    stargate = al_load_bitmap("stargate.png");
+    if(!stargate) {
       al_show_native_message_box(display, "Error", "Error", "Failed to load image!", NULL, ALLEGRO_MESSAGEBOX_ERROR);
       al_destroy_display(display);
       return 0;
     }
+
+    symbols[0] = al_load_bitmap("glyphs/glyph27.gif");
+    symbols[1] = al_load_bitmap("glyphs/glyph07.gif");
+    symbols[2] = al_load_bitmap("glyphs/glyph15.gif");
+    symbols[3] = al_load_bitmap("glyphs/glyph32.gif");
+    symbols[4] = al_load_bitmap("glyphs/glyph12.gif");
+    symbols[5] = al_load_bitmap("glyphs/glyph30.gif");
+    symbols[6] = al_load_bitmap("glyphs/glyph01.gif");
+
 
     while(1) {
       ALLEGRO_EVENT ev;
@@ -52,12 +62,20 @@ int main(int argc, char *argv[])
       if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
          break;
       }
-      al_draw_bitmap(image, 10, 10,0);
+      al_draw_bitmap(stargate, 10, 10,0);
+
+      int symbol_x = 650;
+      int symbol_y = 5;
+      for (int i = 0; i < 7; i++) {
+        al_draw_bitmap(symbols[i], symbol_x, (symbol_y+= 70), 0);
+      }
+
       al_flip_display();
     }
 
     al_destroy_display(display);
-    al_destroy_bitmap(image);
+    al_destroy_bitmap(stargate);
+    al_destroy_bitmap(*symbols);
     al_destroy_event_queue(event_queue);
 
     return 0;

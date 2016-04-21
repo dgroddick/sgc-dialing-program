@@ -5,7 +5,7 @@ TARGET=stargate
 LIBS=allegro-5 allegro_main-5 allegro_image-5 allegro_dialog-5
 
 
-stargate:
+all:
 	$(CC) $(CFLAGS) $(SRC) -o $(TARGET) `pkg-config --cflags --libs $(LIBS)`
 
 clean:
