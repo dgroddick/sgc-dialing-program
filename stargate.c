@@ -3,14 +3,19 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_native_dialog.h>
 
+ALLEGRO_DISPLAY *display = NULL;
+ALLEGRO_BITMAP *stargate = NULL;
+ALLEGRO_BITMAP *symbols[7];
+ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+
+struct Address {
+    char *name;
+    int address[7];
+    ALLEGRO_BITMAP *symbols[7];
+};
+
 int main(int argc, char *argv[])
 {
-    ALLEGRO_DISPLAY *display = NULL;
-    ALLEGRO_BITMAP *stargate = NULL;
-    ALLEGRO_BITMAP *symbols[7];
-    ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-
-
     if(!al_init()) {
       al_show_native_message_box(display, "Error", "Error", "Failed to initialize allegro!", NULL, ALLEGRO_MESSAGEBOX_ERROR);
       return 0;
@@ -43,13 +48,23 @@ int main(int argc, char *argv[])
       return 0;
     }
 
-    symbols[0] = al_load_bitmap("glyphs/glyph27.gif");
-    symbols[1] = al_load_bitmap("glyphs/glyph07.gif");
-    symbols[2] = al_load_bitmap("glyphs/glyph15.gif");
-    symbols[3] = al_load_bitmap("glyphs/glyph32.gif");
-    symbols[4] = al_load_bitmap("glyphs/glyph12.gif");
-    symbols[5] = al_load_bitmap("glyphs/glyph30.gif");
-    symbols[6] = al_load_bitmap("glyphs/glyph01.gif");
+    // Gate Addresses
+    struct Address abydos;
+    abydos.name = "abydos";
+    abydos.address[0] = 27;
+    abydos.address[1] = 7;
+    abydos.address[2] = 15;
+    abydos.address[3] = 32;
+    abydos.address[4] = 12;
+    abydos.address[5] = 30;
+    abydos.address[6] = 0;
+    abydos.symbols[0] = al_load_bitmap("glyphs/glyph27.gif");
+    abydos.symbols[1] = al_load_bitmap("glyphs/glyph07.gif");
+    abydos.symbols[2] = al_load_bitmap("glyphs/glyph15.gif");
+    abydos.symbols[3] = al_load_bitmap("glyphs/glyph32.gif");
+    abydos.symbols[4] = al_load_bitmap("glyphs/glyph12.gif");
+    abydos.symbols[5] = al_load_bitmap("glyphs/glyph30.gif");
+    abydos.symbols[6] = al_load_bitmap("glyphs/glyph01.gif");
 
 
     while(1) {
@@ -67,7 +82,7 @@ int main(int argc, char *argv[])
       int symbol_x = 650;
       int symbol_y = 5;
       for (int i = 0; i < 7; i++) {
-        al_draw_bitmap(symbols[i], symbol_x, (symbol_y+= 70), 0);
+        al_draw_bitmap(abydos.symbols[i], symbol_x, (symbol_y+= 70), 0);
       }
 
       al_flip_display();
