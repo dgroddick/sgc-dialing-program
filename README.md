@@ -8,9 +8,7 @@ Building and Running
 
 You will need a C compiler and the Allegro 5 library.
 
-On Mac OS X, I built using clang (Xcode command line tools). Allegro was installed with homebrew.
-
-Ubuntu works with gcc and allegro installed by apt-get.
+Tested on Mac OS X (10.11), Ubuntu 16.04 and Fedora 23
 
     git clone https://github.com/dgroddick/sgc-dialing-program.git stargate
     cd stargate
