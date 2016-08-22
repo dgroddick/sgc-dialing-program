@@ -11,7 +11,7 @@ Running
 
 Tested on Mac OS X and Ubuntu 16.04
 
-<code>
+<pre><code>
   git clone https://github.com/dgroddick/sgc-dialing-program.git
   cd sgc-dialing-program
   python3 -m venv venv
@@ -19,4 +19,4 @@ Tested on Mac OS X and Ubuntu 16.04
   pip3 install hg+https://bitbucket.org/pygame/pygame
   chmod 755 stargate.py
   ./stargate.py
-</code>
+</code></pre>
