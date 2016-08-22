@@ -3,12 +3,18 @@ Stargate Dialing Program
 
 Simulates the Stargate SGC dialing program.
 
-Building and Running
-====================
+Project is written with Python 3 and PyGame.
+ 
 
-You will need a C compiler and the Allegro 5 library.
+Running
+---------
 
-    git clone https://github.com/dgroddick/sgc-dialing-program.git stargate
-    cd stargate
-    make
-    ./stargate
+Tested on Mac OS X and Ubuntu 16.04
+
+  git clone https://github.com/dgroddick/sgc-dialing-program.git
+  cd sgc-dialing-program
+  python3 -m venv venv
+  source venv/bin/activate
+  pip3 install hg+https://bitbucket.org/pygame/pygame
+  chmod 755 stargate.py
+  ./stargate.py
