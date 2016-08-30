@@ -13,6 +13,18 @@ pygame.init()
 width = 800
 height = 700
 
+FPS = 60
+
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+BLUE = (64, 64, 255)
+RED = (255, 64, 64)
+YELLOW = (255, 255, 0)
+
+# game clock
+clock = pygame.time.Clock()
+
+# create the main program window
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Stargate Dialing Program')
 font = pygame.font.SysFont(None, 72)
@@ -22,25 +34,23 @@ icon = pygame.image.load('glyphs/glyph1.gif')
 icon = pygame.display.set_icon(icon)
 puddle = pygame.image.load('puddle.png')
 
+
 # array to store gate symbols
 SYMBOLS = {}
 
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-BLUE = (64, 64, 255)
-RED = (255, 64, 64)
-YELLOW = (255, 255, 0)
-
-clock = pygame.time.Clock()
-
-
 def load_symbols():
+    '''
+    Create a list holding all the gate symbols
+    '''
     global SYMBOLS
     for i in range(1, 42):
         SYMBOLS[i] = pygame.image.load('glyphs/glyph' + str(i) + '.gif')
 
 
 def dialing_interface():
+    '''
+    Draw the interface for holding the gate symbols as the user types
+    '''
     # chevrons
     pygame.draw.rect(screen, WHITE, [600, 50, 100, 50], 2)    # 1
     pygame.draw.rect(screen, WHITE, [600, 110, 100, 50], 2)   # 2
@@ -56,14 +66,19 @@ def dialing_interface():
 
 
 def gate_status(msg, color):
-    pygame.draw.rect(screen, WHITE, [55, 570, 500, 100], 2)
+    '''
+    Update the gate status
+    '''
+    pygame.draw.rect(screen, WHITE, [55, 570, 500, 100], 2)     # draw a box at the bottom of the screen
     screen.fill(BLACK, (70, 580, 480, 70))
     text = font.render(msg, True, color)
     screen.blit(text, (300 - text.get_width() / 2, 620 - text.get_height() / 2))
 
 
 def draw_stargate_inactive():
-
+    '''
+    Draw an inactive stargate
+    '''
     # stargate
     pygame.draw.circle(screen, WHITE, (300, 300), 250, 1)
     pygame.draw.circle(screen, WHITE, (300, 300), 200, 1)
@@ -86,18 +101,25 @@ def draw_stargate_inactive():
 
 
 def draw_stargate_active():
+    '''
+    Draws an active stargate when the correct gate address has been entered
+    '''
     draw_stargate_inactive()
     screen.blit(puddle, (95, 97))
 
 
 
 def lock_chevron(position, symbol):
+    '''
+    When the user enters a key, lock the associating gate symbol into place
+    '''
     global SYMBOLS
 
+    # check the current symbol
     if position == 1:
-        pygame.draw.polygon(screen, RED, [[125, 480], [140, 425], [90, 435]])
-        pygame.draw.rect(screen, WHITE, [600, 50, 100, 50])
-        screen.blit(SYMBOLS[address_map[symbol]], (625, 50))
+        pygame.draw.polygon(screen, RED, [[125, 480], [140, 425], [90, 435]])   # light up the gate
+        pygame.draw.rect(screen, WHITE, [600, 50, 100, 50])                     # activate the chevron
+        screen.blit(SYMBOLS[address_map[symbol]], (625, 50))                    # blit the symbol to the screen
     elif position == 2:
         pygame.draw.polygon(screen, RED, [[50, 275], [100, 300], [50, 325]])
         pygame.draw.rect(screen, WHITE, [600, 110, 100, 50])
@@ -127,15 +149,18 @@ def lock_chevron(position, symbol):
 def main():
 
     programExit = False
-    encoded = 0
 
+    # keep track of the number of symbols entered
+    keys = 0
+
+    # setup the main window
     load_symbols()
     dialing_interface()
     draw_stargate_inactive()
     gate_status("IDLE", WHITE)
 
     # List to hold the dialed symbols
-    address = []
+    address = {}
 
     # main loop
     while not programExit:
@@ -148,18 +173,20 @@ def main():
             # capture gate address keypress
             if event.type == pygame.KEYDOWN:
                 if event.unicode in address_map:
-                    address.append(event.unicode)
-                    lock_chevron(len(address), event.unicode)
+                    keys += 1
+                    address[keys] = event.unicode
+                    lock_chevron(keys, event.unicode)
                     gate_status("ENGAGED", YELLOW)
 
 
         # 7 Symbol gate address
-        if len(address) == 7:
+        if keys == 7:
             draw_stargate_active()
             gate_status("LOCKED", BLUE)
 
+
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(FPS)
 
 
 

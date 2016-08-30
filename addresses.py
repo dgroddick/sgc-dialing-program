@@ -7,7 +7,8 @@ db = {"EARTH": [28, 26, 5, 36, 11, 29],
       "OTHALA": [11, 'a', 23, 16, 33, 3, 9],
       "PRACLARUSH TAONAS": [35, 3, 31, 29, 5, 17],
       "TOLLANA": [4, 29, 8, 22, 18, 25],
-      "VAGON BREI": [3, 8, 2, 't', 19, 'u']}
+      "VAGON BREI": [3, 8, 2, 't', 19, 'u']
+}
 
 
 address_map = {
