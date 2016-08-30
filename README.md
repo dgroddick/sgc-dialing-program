@@ -4,16 +4,17 @@ Stargate Dialing Program
 Simulates the Stargate SGC dialing program.
 
 Project is written with Python 3 and PyGame.
- 
+
 
 Project Requirements
 ---------------------
 
 Fedora Linux (as root)
+&nbsp;&nbsp;dnf install pygame pygame-devel python3-pygame
 
-<pre><code>
-  dnf install pygame pygame-devel python3-pygame
-</code></pre>
+Ubuntu:
+&nbsp;&nbsp;Instructions for compiling pygame for Python3 are at http://www.pygame.org/wiki/CompileUbuntu.
+
 
 Running
 ---------
