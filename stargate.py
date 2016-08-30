@@ -5,7 +5,7 @@ import sys
 import time
 
 # Import Gate addresses
-from addresses import db
+from addresses import db, address_map
 
 # setup
 pygame.init()
@@ -23,7 +23,7 @@ icon = pygame.display.set_icon(icon)
 puddle = pygame.image.load('puddle.png')
 
 # array to store gate symbols
-SYMBOLS = []
+SYMBOLS = {}
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -37,7 +37,7 @@ clock = pygame.time.Clock()
 def load_symbols():
     global SYMBOLS
     for i in range(1, 42):
-        SYMBOLS.append(pygame.image.load('glyphs/glyph' + str(i) + '.gif'))
+        SYMBOLS[i] = pygame.image.load('glyphs/glyph' + str(i) + '.gif')
 
 
 def dialing_interface():
@@ -91,37 +91,37 @@ def draw_stargate_active():
 
 
 
-def lock_chevron(position):
+def lock_chevron(position, symbol):
     global SYMBOLS
 
     if position == 1:
         pygame.draw.polygon(screen, RED, [[125, 480], [140, 425], [90, 435]])
         pygame.draw.rect(screen, WHITE, [600, 50, 100, 50])
-        screen.blit(SYMBOLS[0], (625, 50))
+        screen.blit(SYMBOLS[address_map[symbol]], (625, 50))
     elif position == 2:
         pygame.draw.polygon(screen, RED, [[50, 275], [100, 300], [50, 325]])
         pygame.draw.rect(screen, WHITE, [600, 110, 100, 50])
-        screen.blit(SYMBOLS[1], (625, 110))
+        screen.blit(SYMBOLS[address_map[symbol]], (625, 110))
     elif position == 3:
         pygame.draw.polygon(screen, RED, [[135, 110], [150, 165], [100, 150]])
         pygame.draw.rect(screen, WHITE, [600, 170, 100, 50])
-        screen.blit(SYMBOLS[2], (625, 170))
+        screen.blit(SYMBOLS[address_map[symbol]], (625, 170))
     elif position == 4:
         pygame.draw.polygon(screen, RED, [[465, 110], [450, 170], [500, 150]])
         pygame.draw.rect(screen, WHITE, [600, 230, 100, 50])
-        screen.blit(SYMBOLS[3], (625, 230))
+        screen.blit(SYMBOLS[address_map[symbol]], (625, 230))
     elif position == 5:
         pygame.draw.polygon(screen, RED, [[550, 275], [500, 300], [550, 325]])
         pygame.draw.rect(screen, WHITE, [600, 290, 100, 50])
-        screen.blit(SYMBOLS[4], (625, 290))
+        screen.blit(SYMBOLS[address_map[symbol]], (625, 290))
     elif position == 6:
         pygame.draw.polygon(screen, RED, [[475, 475], [455, 425], [510, 430]])
         pygame.draw.rect(screen, WHITE, [600, 350, 100, 50])
-        screen.blit(SYMBOLS[5], (625, 350))
+        screen.blit(SYMBOLS[address_map[symbol]], (625, 350))
     else:
         pygame.draw.polygon(screen, RED, [[275, 50], [300, 100], [325, 50]])
         pygame.draw.rect(screen, WHITE, [600, 410, 100, 50])
-        screen.blit(SYMBOLS[6], (625, 410))
+        screen.blit(SYMBOLS[address_map[symbol]], (625, 410))
 
 
 def main():
@@ -147,9 +147,11 @@ def main():
 
             # capture gate address keypress
             if event.type == pygame.KEYDOWN:
-                address.append(event.unicode)
-                lock_chevron(len(address))
-                gate_status("ENGAGED", YELLOW)
+                if event.unicode in address_map:
+                    address.append(event.unicode)
+                    lock_chevron(len(address), event.unicode)
+                    gate_status("ENGAGED", YELLOW)
+
 
         # 7 Symbol gate address
         if len(address) == 7:
